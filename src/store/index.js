@@ -11,6 +11,9 @@ import search from './search'
 
 //创建并暴露store
 export default new Vuex.Store({
+    //模块：把小仓库进行合并变为大仓库
+  modules: {
     home,
     search
+  }
 })
