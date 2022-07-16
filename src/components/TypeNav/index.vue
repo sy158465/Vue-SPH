@@ -2,7 +2,32 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="leaveIndex">
+        <h2 class="all" @mouseenter="changeIndex(0)">全部商品分类</h2>
+        <div class="sort">
+          <div class="all-sort-list2">
+            <div class="item" v-for="(c1,index) in categoryList.slice(0,15)" :key="c1.categoryId" :class="{cur:currentIndex==index}">
+              <h3 @mouseenter="changeIndex(index)"  @mouseleave="leaveIndex">
+                <a href="">{{c1.categoryName}}</a>
+              </h3>
+              <div class="item-list clearfix">
+                <div class="subitem" v-for="c2 in c1.categoryChild.slice(0,15)" :key="c2.categoryId">
+                  <dl class="fore">
+                    <dt>
+                      <a href="">{{c2.categoryName}}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                        <a href="">{{c3.categoryName}}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,29 +38,6 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item" v-for="c1 in categoryList.slice(0,15)" :key="c1.categoryId">
-            <h3>
-              <a href="">{{c1.categoryName}}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem" v-for="c2 in c1.categoryChild.slice(0,15)" :key="c2.categoryId">
-                <dl class="fore">
-                  <dt>
-                    <a href="">{{c2.categoryName}}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{c3.categoryName}}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -45,6 +47,11 @@
 import { mapState } from "vuex";
 export default {
   name: "TypeNav",
+  data () {
+    return {
+      currentIndex: -1
+    }
+  },
   mounted () {
     // 通知Vuex发请求，获取数据，存储在仓库中
     this.$store.dispatch('getCategoryList');
@@ -56,6 +63,14 @@ export default {
       categoryList: (state) => state.home.categoryList,
     }),
   },
+  methods: {
+    changeIndex (index) {
+      this.currentIndex = index;
+    },
+    leaveIndex(){
+      this.currentIndex = -1;
+    }
+  }
 }
 </script>
 
@@ -174,6 +189,10 @@ export default {
               display: block;
             }
           }
+        }
+
+        .cur {
+          background-color: skyblue;
         }
       }
     }
