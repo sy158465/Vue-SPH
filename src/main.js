@@ -5,7 +5,10 @@ import TypeNav from '@/components/TypeNav'
 import router from '@/router'
 //引入store
 import store from '@/store'
+import '@/mock/mockServe'
 
+// 引入 Swiper styles
+import 'swiper/css/swiper.css';
 Vue.config.productionTip = false;
 Vue.component(TypeNav.name, TypeNav);
 

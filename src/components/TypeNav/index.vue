@@ -2,31 +2,33 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="leaveIndex">
+      <div @mouseleave="leaveShow" @mouseenter="enterShow">
         <h2 class="all" @mouseenter="changeIndex(0)">全部商品分类</h2>
-        <div class="sort">
-          <div class="all-sort-list2">
-            <div class="item" v-for="(c1,index) in categoryList.slice(0,15)" :key="c1.categoryId" :class="{cur:currentIndex==index}">
-              <h3 @mouseenter="changeIndex(index)"  @mouseleave="leaveIndex">
-                <a href="">{{c1.categoryName}}</a>
-              </h3>
-              <div class="item-list clearfix">
-                <div class="subitem" v-for="c2 in c1.categoryChild.slice(0,15)" :key="c2.categoryId">
-                  <dl class="fore">
-                    <dt>
-                      <a href="">{{c2.categoryName}}</a>
-                    </dt>
-                    <dd>
-                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a href="">{{c3.categoryName}}</a>
-                      </em>
-                    </dd>
-                  </dl>
+        <transition name="sort">
+          <div class="sort" v-show="show">
+            <div class="all-sort-list2" @click="goSearch">
+              <div class="item" v-for="(c1,index) in categoryList.slice(0,15)" :key="c1.categoryId" :class="{cur:currentIndex==index}">
+                <h3 @mouseenter="changeIndex(index)">
+                  <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
+                </h3>
+                <div class="item-list clearfix">
+                  <div class="subitem" v-for="c2 in c1.categoryChild.slice(0,15)" :key="c2.categoryId">
+                    <dl class="fore">
+                      <dt>
+                        <a :data-categoryName="c2.categoryName" :data-category1Id="c2.categoryId">{{c2.categoryName}}</a>
+                      </dt>
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a :data-categoryName="c3.categoryName" :data-category1Id="c3.categoryId">{{c3.categoryName}}</a>
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -45,16 +47,19 @@
 
 <script>
 import { mapState } from "vuex";
+import throttle from 'lodash/throttle';
 export default {
   name: "TypeNav",
   data () {
     return {
-      currentIndex: -1
+      currentIndex: -1,
+      show: true
     }
   },
   mounted () {
-    // 通知Vuex发请求，获取数据，存储在仓库中
-    this.$store.dispatch('getCategoryList');
+    if (this.$route.path != "/home") {
+      this.show = false;
+    }
   },
   //计算属性
   computed: {
@@ -64,12 +69,45 @@ export default {
     }),
   },
   methods: {
-    changeIndex (index) {
+    // changeIndex (index) {
+    //   this.currentIndex = index;
+    // },
+    // 节流操作
+    changeIndex: throttle(function (index) {
       this.currentIndex = index;
+    }, 50),
+    goSearch (event) {
+      // 获取自定义标签
+      let element = event.target;
+      // 获取自定义属性和属性值
+      let { categoryname, category1id, category2id, category3id } = element.dataset;
+      // 如果标签身上拥有categoryname,一定是a标签
+      if (categoryname) {
+        // 整理路由跳转的参数
+        let location = { name: "search" };
+        let query = { categoryname: categoryname };
+        // 区分一级分类、二级分类、三级分类的a标签
+        if (category1id) {
+          query.category1Id = category1id;
+        } else if (category2id) {
+          query.category2Id = category2id;
+        } else {
+          query.category3Id = category3id;
+        }
+        location.query = query;
+        this.$router.push(location);
+      }
     },
-    leaveIndex(){
+    // 鼠标进入显示三级联动
+    enterShow () {
+      this.show = true;
+    },
+    leaveShow () {
       this.currentIndex = -1;
-    }
+      if (this.$route.path != "/home") {
+        this.show = false;
+      }
+    },
   }
 }
 </script>
