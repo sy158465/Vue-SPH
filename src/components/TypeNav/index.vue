@@ -85,7 +85,7 @@ export default {
       if (categoryname) {
         // 整理路由跳转的参数
         let location = { name: "search" };
-        let query = { categoryname: categoryname };
+        let query = { categoryName: categoryname };
         // 区分一级分类、二级分类、三级分类的a标签
         if (category1id) {
           query.category1Id = category1id;

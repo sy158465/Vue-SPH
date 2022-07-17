@@ -48,10 +48,12 @@ export default {
       keyword: ''
     }
   },
-  components: {
-
+  mounted () {
+    //通过全局事件总线清除关键字
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
   },
-  created () { },
   methods: {
     goSearch () {
       if (this.$route.query) {
