@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId" @click="tradeMatkHandler(trademark)">{{trademark.tmName}}</li>
+          <li v-for="trademark in trademarkList" :key="trademark.tmId" @click="tradeMarkHandler(trademark)">{{trademark.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -16,7 +16,7 @@
       <div class="fl key">{{attrs.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(value,index) in attrs.attrValueList" :key="index" >
+          <li v-for="(value,index) in attrs.attrValueList" :key="index" @click="attrHandler(attrs,value)">
             <a>{{value}}</a>
           </li>
         </ul>
@@ -35,12 +35,15 @@ export default {
   },
   methods: {
     //品牌的事件处理函数
-    tradeMatkHandler (trademark) {
+    tradeMarkHandler (trademark) {
       //点击了品牌（苹果），还是需要整理参数，向服务器发请求获取相应的数据进行展示
       //老师问题：在那个组件中发请求，父组件?
       //为什么那,因为父组件中searchParams参数是带给服务器参数，子组件组件把你点击的品牌的信息，需要给父组件传递过去---自定义事件
       this.$emit('trademarkInfo', trademark);
     },
+    attrHandler(attrs,value){
+      this.$emit('attrInfo', attrs,value)
+    }
   }
 }
 </script>
