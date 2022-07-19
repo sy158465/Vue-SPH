@@ -18,7 +18,7 @@
 //引入Swiper
 import Swiper from "swiper";
 export default {
-  name: "Carousel",
+  name: "Carsousel",
   props: ["list"],
   watch: {
     list: {

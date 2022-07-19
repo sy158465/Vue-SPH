@@ -1,5 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+import routes from './routes'
 // 使用插件
 Vue.use(VueRouter)
 // 捕获push replace中的错误
@@ -16,40 +17,12 @@ VueRouter.prototype.replace = function push (location, onResolve, onReject) {
     if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
     return originalReplace.call(this, location).catch(err => err)
 }
-// 引入路由组件
-import Home from "@/pages/Home"
-import Login from "@/pages/Login"
-import Register from "@/pages/Register"
-import Search from "@/pages/Search"
+
 //配置路由
 export default new VueRouter({
     mode: 'history',
-    routes: [
-        {
-            path: "/home",
-            component: Home,
-            meta: { show: true }
-
-        },
-        {
-            path: "/login",
-            component: Login,
-            meta: { show: false }
-        },
-        {
-            path: "/register",
-            component: Register,
-            meta: { show: false }
-        },
-        {
-            path: "/search/:keyword?",
-            component: Search,
-            meta: { show: true },
-            name: "search"
-        },
-        {
-            path: "*",
-            redirect: "/home"
-        }
-    ]
+    routes,
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 }
+      }
 })

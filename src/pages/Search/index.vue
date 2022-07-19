@@ -1,9 +1,11 @@
 <template>
   <div>
+    <!-- 顶部组件 -->
     <TypeNav />
+    <!-- 中间部分 -->
     <div class="main">
       <div class="py-container">
-        <!--bread-->
+        <!--面包屑部分-->
         <div class="bread">
           <ul class="fl sui-breadcrumb">
             <li>
@@ -30,11 +32,12 @@
           </ul>
         </div>
 
-        <!--selector-->
+        <!--搜索选择部分-->
         <SearchSelector @trademarkInfo="trademarkInfo" @attrInfo="attrInfo" />
 
-        <!--details-->
+        <!--产品排列部分-->
         <div class="details clearfix">
+          <!-- 排序部分 -->
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
@@ -53,7 +56,7 @@
               <li class="yui3-u-1-5" v-for="goods in goodsList" :key="goods.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="goods.defaultImg" /></a>
+                    <router-link :to="`/detail/${goods.id}`"><img :src="goods.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -147,7 +150,7 @@ export default {
   methods: {
     getData () {
       this.$store.dispatch('getSearchList', this.searchParams)
-      console.log(this.searchParams);
+      // console.log(this.searchParams);
     },
     //删除分类的名字
     removeCategoryName () {

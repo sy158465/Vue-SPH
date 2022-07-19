@@ -9,3 +9,5 @@ export const reqBaseCategoryList = () => requests.get('/product/getBaseCategoryL
 export const reqGetBannerList = () => mockRequests.get('/banner');
 export const reqGetFloorList = () => mockRequests.get('/floor');
 export const reqGetSearchInfo = (params) => requests({ url: "/list", method: "post", data: params });
+// /item/{ skuId }
+export const reqGetGoodsInfo = (skuId) => requests({ url: `/item/${skuId}`, method: "get" });

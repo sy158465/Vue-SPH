@@ -8,12 +8,14 @@ Vue.use(Vuex)
 
 import home from './home'
 import search from './search'
+import detail from './detail'
 
 //创建并暴露store
 export default new Vuex.Store({
     //模块：把小仓库进行合并变为大仓库
     modules: {
         home,
-        search
+        search,
+        detail
     }
 })
