@@ -1,4 +1,4 @@
-import { reqGetGoodsInfo } from '@/api'
+import { reqGetGoodsInfo,reqAddOrUpdateShopCart } from '@/api'
 const state = {
     goodsInfo: {}
 };
@@ -8,7 +8,17 @@ const actions = {
         if (res.code == 200) {
             commit("GETGOODSINFO", res.data);
         }
-    }
+    },
+    async addOrUpdateShopCart ({ commit }, {skuId,skuNum}) {
+        let result = await reqAddOrUpdateShopCart(skuId,skuNum);
+        if (result.code == 200) {
+            //返回的是成功的标记
+            return "ok";
+          } else {
+            //返回的是失败的标记
+            return Promise.reject(new Error("faile"));
+          }
+    },
 };
 const mutations = {
     GETGOODSINFO (state, goodsInfo) {
