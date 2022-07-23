@@ -21,10 +21,11 @@ Vue.component(Carousel.name, Carousel);
 Vue.component(Pagination.name, Pagination);
 
 Vue.use(ElementUI);
+
 new Vue({
   render: h => h(App),
   //全局事件总线$bus配置
-  beforeCreate() {
+  beforeCreate () {
     Vue.prototype.$bus = this;
   },
   // 注册路由

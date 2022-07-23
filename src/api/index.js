@@ -19,3 +19,5 @@ export const reqGetGoodsInfo = (skuId) => requests({ url: `/item/${skuId}`, meth
 export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: "post" })
 // 获取购物车数据cart/cartList
 export const reqGetCartList = () => requests({ url: `/cart/cartList`, method: "get" });
+// 通过ID删除购物车的数据  /api/cart/deleteCart/{skuId}
+export const reqDeleteCartById = (skuId) => requests({ url: `/cart/deleteCart/${skuId}`, method: "delete" });
