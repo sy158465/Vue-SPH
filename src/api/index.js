@@ -21,3 +21,5 @@ export const reqAddOrUpdateShopCart = (skuId, skuNum) => requests({ url: `/cart/
 export const reqGetCartList = () => requests({ url: `/cart/cartList`, method: "get" });
 // 通过ID删除购物车的数据  /api/cart/deleteCart/{skuId}
 export const reqDeleteCartById = (skuId) => requests({ url: `/cart/deleteCart/${skuId}`, method: "delete" });
+// /api/cart/checkCart/{skuId}/{isChecked}
+export const reqUpdateCheckedById = (skuId,isChecked) => requests({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: "get" });

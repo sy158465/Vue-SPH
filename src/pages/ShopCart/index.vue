@@ -13,7 +13,7 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="cartInfo in cartInfoList" :key="cartInfo.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="cartInfo.isChecked==1">
+            <input type="checkbox" name="chk_list" :checked="cartInfo.isChecked==1" @change="updateChecked(cartInfo.skuId,$event)">
           </li>
           <li class="cart-list-con2">
             <img :src="cartInfo.imgUrl">
@@ -41,11 +41,11 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked">
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked&&cartInfoList.length>0" @change="updateAllCartChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import throttle from "lodash/throttle";
 export default {
   name: 'ShopCart',
@@ -116,9 +116,41 @@ export default {
         this.getData();
       } catch (error) { }
     }, 500),
+    // 删除某一个产品
     async deleteCartById (cartInfo) {
       try {
         await this.$store.dispatch("deleteCartById", cartInfo.skuId);
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    // 修改某一个产品的选中状态
+    async updateChecked (skuId, event) {
+      try {
+        //如果修改数据成功，再次获取服务器数据（购物车）
+        let isChecked = event.target.checked ? "1" : "0";
+        await this.$store.dispatch("updateCheckedById", { skuId, isChecked });
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    // 删除多个选中的产品
+    async deleteAllCheckedCart () {
+      try {
+        await this.$store.dispatch("deleteAllCheckedCart");
+        this.getData();
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    //修改全部产品的选中状态
+    async updateAllCartChecked (event) {
+      try {
+        let isChecked = event.target.checked ? "1" : "0";
+        //派发action
+        await this.$store.dispatch("updateAllCartIsChecked", isChecked);
         this.getData();
       } catch (error) {
         alert(error.message);
