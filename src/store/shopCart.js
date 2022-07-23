@@ -17,7 +17,7 @@ const actions = {
         if (result.code == 200) {
             return "ok";
         } else {
-            return Promise.reject(new Error("faile"));
+            return Promise.reject(new Error("fail"));
         }
     },
     // 修改购物车商品的选中状态
@@ -27,7 +27,7 @@ const actions = {
         if (result.code == 200) {
             return "ok";
         } else {
-            return Promise.reject(new Error("faile"));
+            return Promise.reject(new Error("fail"));
         }
     },
     //删除多个勾选的产品
