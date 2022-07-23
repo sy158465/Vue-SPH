@@ -14,7 +14,7 @@
           </ul>
 
           <div class="content">
-            <form>
+            <form @submit.prevent>
               <div class="input-text clearFix">
                 <span></span>
                 <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone">
