@@ -14,6 +14,11 @@ import 'swiper/css/swiper.css';
 // 引入elementui
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// import { Button} from 'element-ui';
+// Vue.component(Button.name, Button);
+// 统一引入
+import * as API from '@/api'
+
 Vue.config.productionTip = false;
 // 注册全局组件：第一个参数 组件名字  第二个参数：那个组件
 Vue.component(TypeNav.name, TypeNav);
@@ -27,6 +32,7 @@ new Vue({
   //全局事件总线$bus配置
   beforeCreate () {
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API;
   },
   // 注册路由
   router,

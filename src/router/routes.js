@@ -10,6 +10,11 @@ import Detail from "@/pages/Detail"
 import AddCartSuccess from "@/pages/AddCartSuccess"
 import ShopCart from "@/pages/ShopCart"
 import Trade from "@/pages/Trade"
+import Pay from "@/pages/Pay"
+import PaySuccess from "@/pages/PaySuccess"
+import Center from "@/pages/Center"
+import MyOrder from "@/pages/Center/myOrder"
+import GroupOrder from "@/pages/Center/groupOrder.vue"
 
 export default [
     {
@@ -57,6 +62,41 @@ export default [
         name: "trade",
         component: Trade,
         meta: { show: true },
+    },
+    {
+        path: "/pay",
+        name: "pay",
+        component: Pay,
+        meta: { show: true },
+    },
+    {
+        path: "/paySuccess",
+        name: "paySuccess",
+        component: PaySuccess,
+        meta: { show: true },
+    },
+    {
+        path: "/center",
+        name: "center",
+        component: Center,
+        children: [{
+            // path: '/center/myorder',
+            path: 'myOrder',
+            component: MyOrder,
+            name: "myOrder",
+
+        },
+        {
+            path: 'groupOrder',
+            component: GroupOrder,
+            name: "groupOrder",
+
+        },
+        {
+            path: '',
+            redirect: 'myOrder'
+        }
+        ]
     },
     {
         path: "*",
