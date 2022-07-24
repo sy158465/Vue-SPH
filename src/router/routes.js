@@ -1,66 +1,51 @@
 /*
 所有路由配置的数组
 */
-// 引入路由组件
-import Home from "@/pages/Home"
-import Login from "@/pages/Login"
-import Register from "@/pages/Register"
-import Search from "@/pages/Search"
-import Detail from "@/pages/Detail"
-import AddCartSuccess from "@/pages/AddCartSuccess"
-import ShopCart from "@/pages/ShopCart"
-import Trade from "@/pages/Trade"
-import Pay from "@/pages/Pay"
-import PaySuccess from "@/pages/PaySuccess"
-import Center from "@/pages/Center"
-import MyOrder from "@/pages/Center/myOrder"
-import GroupOrder from "@/pages/Center/groupOrder.vue"
-
 export default [
     {
         path: "/home",
-        component: Home,
+        component: () => import('@/pages/Home'),
         meta: { show: true }
 
     },
     {
         path: "/login",
-        component: Login,
+        component: () => import('@/pages/Login'),
         meta: { show: false }
     },
     {
         path: "/register",
-        component: Register,
+        component: () => import('@/pages/Register'),
         meta: { show: false }
     },
     {
         path: "/search/:keyword?",
-        component: Search,
+        component: () => import('@/pages/Search'),
         meta: { show: true },
         name: "search"
     },
     {
         path: "/detail/:skuid",
-        component: Detail,
+        component: () => import('@/pages/Detail'),
         meta: { show: true },
         name: "detail"
     },
     {
         path: "/addCartSuccess",
-        component: AddCartSuccess,
+        component: () => import('@/pages/AddCartSuccess'),
         meta: { show: true },
         name: "addCartSuccess"
     },
     {
         path: "/shopCart",
-        component: ShopCart,
+        component: () => import('@/pages/ShopCart'),
         meta: { show: true },
         name: "shopCart"
     },
     {
         path: "/trade",
         name: "trade",
-        component: Trade,
+        component: () => import('@/pages/Trade'),
         meta: { show: true },
         /* 只能从购物车界面, 才能跳转到交易界面 */
         beforeEnter (to, from, next) {
@@ -74,7 +59,7 @@ export default [
     {
         path: "/pay",
         name: "pay",
-        component: Pay,
+        component: () => import('@/pages/Pay'),
         meta: { show: true },
         /* 只能从交易界面, 才能跳转到支付界面 */
         beforeEnter (to, from, next) {
@@ -88,22 +73,22 @@ export default [
     {
         path: "/paySuccess",
         name: "paySuccess",
-        component: PaySuccess,
+        component: () => import('@/pages/PaySuccess'),
         meta: { show: true },
     },
     {
         path: "/center",
-        component: Center,
+        component: () => import('@/pages/Center'),
         children: [{
             // path: '/center/myorder',
             path: 'myOrder',
-            component: MyOrder,
+            component: () => import('@/pages/Center/myOrder'),
             name: "myOrder",
 
         },
         {
             path: 'groupOrder',
-            component: GroupOrder,
+            component: () => import('@/pages/Center/groupOrder'),
             name: "groupOrder",
 
         },

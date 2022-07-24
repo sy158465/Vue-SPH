@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 // 引入全局组件
-import TypeNav from '@/components/TypeNav'
-import Carousel from '@/components/Carousel'
-import Pagination from '@/components/Pagination'
+import TypeNav from '@/components/TypeNav';
+import Carousel from '@/components/Carousel';
+import Pagination from '@/components/Pagination';
 // 引入路由
-import router from '@/router'
+import router from '@/router';
 //引入store
-import store from '@/store'
-import '@/mock/mockServe'
+import store from '@/store';
+import '@/mock/mockServe';
 // 引入 Swiper
 import 'swiper/css/swiper.css';
 // 引入elementui
@@ -17,16 +17,17 @@ import 'element-ui/lib/theme-chalk/index.css';
 // import { Button} from 'element-ui';
 // Vue.component(Button.name, Button);
 // 统一引入
-import * as API from '@/api'
+import * as API from '@/api';
 // 图片懒加载
-import logo from '@/assets/logo.png'
+import logo from '@/assets/logo.png';
 import Vant,{Lazyload} from 'vant';
-import 'vant/lib/index.css'
+import 'vant/lib/index.css';
+import '@/plugins/validate'
+
 Vue.use(Vant);
 Vue.use(Lazyload, {
   loading: logo
 });
-
 
 Vue.config.productionTip = false;
 // 注册全局组件：第一个参数 组件名字  第二个参数：那个组件
