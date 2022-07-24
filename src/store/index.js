@@ -11,6 +11,7 @@ import search from './search'
 import detail from './detail'
 import shopCart from './shopCart'
 import user from './user'
+import trade from './trade'
 
 //创建并暴露store
 export default new Vuex.Store({
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         search,
         detail,
         shopCart,
-        user
+        user,
+        trade
     }
 })
