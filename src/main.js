@@ -18,6 +18,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 // Vue.component(Button.name, Button);
 // 统一引入
 import * as API from '@/api'
+// 图片懒加载
+import logo from '@/assets/logo.png'
+import Vant,{Lazyload} from 'vant';
+import 'vant/lib/index.css'
+Vue.use(Vant);
+Vue.use(Lazyload, {
+  loading: logo
+});
+
 
 Vue.config.productionTip = false;
 // 注册全局组件：第一个参数 组件名字  第二个参数：那个组件

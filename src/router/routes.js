@@ -62,12 +62,28 @@ export default [
         name: "trade",
         component: Trade,
         meta: { show: true },
+        /* 只能从购物车界面, 才能跳转到交易界面 */
+        beforeEnter (to, from, next) {
+            if (from.path === '/shopcart') {
+                next()
+            } else {
+                next('/shopcart')
+            }
+        }
     },
     {
         path: "/pay",
         name: "pay",
         component: Pay,
         meta: { show: true },
+        /* 只能从交易界面, 才能跳转到支付界面 */
+        beforeEnter (to, from, next) {
+            if (from.path === '/trade') {
+                next();
+            } else {
+                next('/trade');
+            }
+        }
     },
     {
         path: "/paySuccess",
@@ -77,7 +93,6 @@ export default [
     },
     {
         path: "/center",
-        name: "center",
         component: Center,
         children: [{
             // path: '/center/myorder',
